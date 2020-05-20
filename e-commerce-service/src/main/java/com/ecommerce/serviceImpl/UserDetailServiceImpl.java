@@ -1,5 +1,6 @@
 package com.ecommerce.serviceImpl;
 
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,12 @@ public class UserDetailServiceImpl implements UserDetailService {
 			return userDetailinfoDAO.save(userDetailInfo);
 		}
 		return null;
+	}
+
+	@Override
+	public List<String> getAllName() {
+		// TODO Auto-generated method stub
+		return userDetailDAO.allUserNames();
 	}
 
 }

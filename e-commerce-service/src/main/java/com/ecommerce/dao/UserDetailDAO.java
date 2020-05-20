@@ -1,5 +1,7 @@
 package com.ecommerce.dao;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -16,5 +18,7 @@ public interface UserDetailDAO extends CrudRepository<UserDetail, Long>{
 	
 	@Query(value = "SELECT COUNT(*) FROM UserDetail where userName = :email ", nativeQuery = true)
 	int userCount(@Param("email")String email);
+	@Query(value = "SELECT USERNAME FROM UserDetail", nativeQuery = true)
+	List<String> allUserNames();
 
 }
