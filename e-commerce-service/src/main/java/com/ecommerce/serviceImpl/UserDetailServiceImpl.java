@@ -36,9 +36,19 @@ public class UserDetailServiceImpl implements UserDetailService {
 		if (userDetailDAO.userCount(userDetailDTO.getEmail()) == 0) {
 			Cart cart = new Cart();
 			cartDAO.save(cart);
-			userDetailDAO.save(new UserDetail(1l, userDetailDTO.getEmail(), userDetailDTO.getPassword()));
-			return userDetailinfoDAO.save(new UserDetailInfo(1l, userDetailDTO.getName(), userDetailDTO.getEmail(),
-					userDetailDTO.getPhoneNum()));
+			UserDetail userDetail = new UserDetail();
+			userDetail.setCart(cart);
+			userDetail.setPassword(userDetailDTO.getPassword());
+			userDetail.setUserName(userDetailDTO.getEmail());
+
+			userDetailDAO.save(userDetail);
+
+			UserDetailInfo userDetailInfo = new UserDetailInfo();
+			userDetailInfo.setEmail(userDetailDTO.getEmail());
+			userDetailInfo.setName(userDetailDTO.getName());
+			userDetailInfo.setPhoneNum(userDetailDTO.getPhoneNum());
+
+			return userDetailinfoDAO.save(userDetailInfo);
 		}
 		return null;
 	}
