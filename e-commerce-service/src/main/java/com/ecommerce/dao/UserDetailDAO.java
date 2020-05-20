@@ -15,7 +15,7 @@ import com.ecommerce.entity.UserDetail;
 @Repository
 @Transactional
 public interface UserDetailDAO extends CrudRepository<UserDetail, Long>{
-	
+	//Anjali
 	@Query(value = "SELECT COUNT(*) FROM UserDetail where userName = :email ", nativeQuery = true)
 	int userCount(@Param("email")String email);
 	@Query(value = "SELECT USERNAME FROM UserDetail", nativeQuery = true)
