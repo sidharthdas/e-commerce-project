@@ -9,6 +9,7 @@ import com.ecommerce.dao.CartDAO;
 import com.ecommerce.dao.UserDetailDAO;
 import com.ecommerce.dao.UserDetailinfoDAO;
 import com.ecommerce.dto.UserDetailDTO;
+import com.ecommerce.entity.Cart;
 import com.ecommerce.entity.UserDetail;
 import com.ecommerce.entity.UserDetailInfo;
 import com.ecommerce.service.UserDetailService;
@@ -33,6 +34,8 @@ public class UserDetailServiceImpl implements UserDetailService {
 		}
 
 		if (userDetailDAO.userCount(userDetailDTO.getEmail()) == 0) {
+			Cart cart = new Cart();
+			cartDAO.save(cart);
 			userDetailDAO.save(new UserDetail(1l, userDetailDTO.getEmail(), userDetailDTO.getPassword()));
 			return userDetailinfoDAO.save(new UserDetailInfo(1l, userDetailDTO.getName(), userDetailDTO.getEmail(),
 					userDetailDTO.getPhoneNum()));
