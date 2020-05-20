@@ -19,6 +19,19 @@ public class UserDetail {
 	private String password;
 	@OneToOne
 	private Cart cart;
+	
+	
+	
+	public UserDetail() {
+		
+	}
+
+	public UserDetail(Long userId, String userName, String password) {
+		this.userId = userId;
+		this.userName = userName;
+		this.password = password;
+
+	}
 
 	public Long getUserId() {
 		return userId;

@@ -14,15 +14,25 @@ public class Cart {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int cartId;
+	private long cartId;
+	
+	public Cart() {
+		
+	}
+	
+	public Cart(int cartId) {
+
+		this.cartId = cartId;
+	}
+
 	@ManyToMany
 	private Collection<Product> products = new ArrayList<>();
 
-	public int getCartId() {
+	public long getCartId() {
 		return cartId;
 	}
 
-	public void setCartId(int cartId) {
+	public void setCartId(long cartId) {
 		this.cartId = cartId;
 	}
 
