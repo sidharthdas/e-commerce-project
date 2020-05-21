@@ -31,5 +31,10 @@ public class UserDetailController {
 	public ResponseEntity<List<String>> getAllNames(){
 		return new ResponseEntity<List<String>>(userDetailService.getAllName(), HttpStatus.OK);
 	}
+	
+	@PostMapping("/add-dummy-users")
+	public void addDummyUsers() {
+		userDetailService.addDummyUsers();
+	}
 
 }

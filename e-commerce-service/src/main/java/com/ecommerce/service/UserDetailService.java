@@ -9,5 +9,6 @@ public interface UserDetailService {
 	
 	UserDetailInfo addUser(UserDetailDTO userDetailsDTO);
 	List<String> getAllName();
+	void addDummyUsers();
 
 }

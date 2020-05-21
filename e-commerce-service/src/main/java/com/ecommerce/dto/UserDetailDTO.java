@@ -6,6 +6,17 @@ public class UserDetailDTO {
 	private String email;
 	private long phoneNum;
 	private String password;
+	
+	public UserDetailDTO() {
+		
+	}
+
+	public UserDetailDTO(String name, String email, long phoneNum, String password) {
+		this.name = name;
+		this.email = email;
+		this.phoneNum = phoneNum;
+		this.password = password;
+	}
 
 	public String getName() {
 		return name;
