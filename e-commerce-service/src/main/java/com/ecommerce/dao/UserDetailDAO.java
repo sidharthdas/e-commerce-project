@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ecommerce.entity.UserDetail;
+import com.ecommerce.entity.UserDetailInfo;
 
 
 
@@ -20,5 +21,7 @@ public interface UserDetailDAO extends CrudRepository<UserDetail, Long>{
 	int userCount(@Param("email")String email);
 	@Query(value = "SELECT USERNAME FROM UserDetail", nativeQuery = true)
 	List<String> allUserNames();
+	
+	
 
 }

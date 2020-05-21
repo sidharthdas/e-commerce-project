@@ -1,6 +1,7 @@
 package com.ecommerce.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,11 @@ public class UserDetailController {
 	@PostMapping("/add-dummy-users")
 	public void addDummyUsers() {
 		userDetailService.addDummyUsers();
+	}
+	
+	@GetMapping("/get-username-and-email")
+	public Map<String, String> getUserNameAndEmail(){
+		return userDetailService.getUserNameAndEmail();
 	}
 
 }

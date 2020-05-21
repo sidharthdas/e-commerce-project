@@ -1,7 +1,9 @@
 package com.ecommerce.serviceImpl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class UserDetailServiceImpl implements UserDetailService {
 
 	@Autowired
 	private CartDAO cartDAO;
+	
+	@Autowired
+	private UserDetailinfoDAO userDetailInfoDAO;
 
 	@Override
 	public UserDetailInfo addUser(UserDetailDTO userDetailDTO) {
@@ -82,6 +87,18 @@ public class UserDetailServiceImpl implements UserDetailService {
 	
 		
 
+	}
+
+	@Override
+	public Map<String, String> getUserNameAndEmail() {
+		// TODO Auto-generated method stub
+		Map<String,String> userNamesAndEmail = new HashMap<>();
+		List<UserDetailInfo> allUser = userDetailInfoDAO.getAllUser();
+		
+		allUser.forEach(user->{
+			userNamesAndEmail.put(user.getEmail(), user.getName());
+		});
+		return userNamesAndEmail;
 	}
 
 }
