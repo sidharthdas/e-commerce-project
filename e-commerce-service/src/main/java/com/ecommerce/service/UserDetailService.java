@@ -12,4 +12,6 @@ public interface UserDetailService {
 	List<String> getAllName();
 	void addDummyUsers();
 	Map<String, String> getUserNameAndEmail();
+	List<String> getUserEmail();
+	Map<String,Integer> getDomainCount();
 }

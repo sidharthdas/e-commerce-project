@@ -42,5 +42,15 @@ public class UserDetailController {
 	public Map<String, String> getUserNameAndEmail(){
 		return userDetailService.getUserNameAndEmail();
 	}
+	
+	@GetMapping("/get-useremail")
+	public List<String> getUserEmail(){
+		return userDetailService.getUserEmail();
+	}
+	
+	@GetMapping("/get-domain-Count")
+	public Map<String,Integer> getUserEmailCount(){
+		return userDetailService.getDomainCount();
+	}
 
 }

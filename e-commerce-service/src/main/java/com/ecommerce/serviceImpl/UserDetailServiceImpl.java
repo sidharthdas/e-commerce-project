@@ -101,4 +101,47 @@ public class UserDetailServiceImpl implements UserDetailService {
 		return userNamesAndEmail;
 	}
 
+	@Override
+	public List<String> getUserEmail() {
+		List<String> userEmail1 = new ArrayList<String>();
+		List<UserDetailInfo> allUser = userDetailInfoDAO.getAllUser();
+		
+		
+		allUser.forEach(user->{
+				userEmail1.add(user.getEmail());
+			});
+		
+		List<String> userEmail2 = new ArrayList<String>();
+		for (String element : userEmail1){
+	         if (element.contains("gmail")){
+	              userEmail2.add(element);
+	         }
+	   
+		}
+		 return userEmail2;
+	}
+
+	@Override
+	public Map<String, Integer> getDomainCount() {
+		
+		Map<String, Integer> domainCount = new HashMap<>();
+		
+		List<UserDetailInfo> allUser = userDetailInfoDAO.getAllUser();
+		
+		allUser.forEach(user->{
+			
+			String[] email = user.getEmail().split("@");
+			String[] domain = email[1].split("\\.");
+			String domainName = domain[0];
+			
+			if(domainCount.containsKey(domainName)) {
+				domainCount.put(domainName, domainCount.get(domainName)+1);
+				
+			}else {
+				domainCount.put(domainName, 1);
+			}
+		});
+		return domainCount;
+	}
+
 }
