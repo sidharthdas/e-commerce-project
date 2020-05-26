@@ -14,17 +14,35 @@ public class Product {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int productId;
+	private long productId;
 	private String prodName;
 	private float price;
+	private int productQuantity;
+	
+	
+	public Product() {
+		
+	}
+	
+	
 	@ManyToMany(mappedBy = "products")
 	private Collection<Cart> carts = new ArrayList<>();
+	
+	
+	
+	public int getProductQuantity() {
+		return productQuantity;
+	}
 
-	public int getProductId() {
+	public void setProductQuantity(int productQuantity) {
+		this.productQuantity = productQuantity;
+	}
+
+	public long getProductId() {
 		return productId;
 	}
 
-	public void setProductId(int productId) {
+	public void setProductId(long productId) {
 		this.productId = productId;
 	}
 
