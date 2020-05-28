@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import com.ecommerce.dao.CartDAO;
 import com.ecommerce.dao.UserDetailDAO;
 import com.ecommerce.dao.UserDetailinfoDAO;
 import com.ecommerce.dto.UserDetailDTO;
+import com.ecommerce.dto.UserEmailAndCartDTO;
 import com.ecommerce.entity.Cart;
 import com.ecommerce.entity.UserDetail;
 import com.ecommerce.entity.UserDetailInfo;
@@ -142,6 +144,40 @@ public class UserDetailServiceImpl implements UserDetailService {
 			}
 		});
 		return domainCount;
+	}
+
+	@Override
+	public Cart getUserCartByID(long id) {
+		Optional<UserDetail> userDetail = userDetailDAO.findById(id);
+		if(Objects.isNull(userDetail)) {
+			return null;
+		}
+		return userDetail.get().getCart();
+	}
+
+	@Override
+	public List<Cart> getAllCartDetail() {
+		List<UserDetail> allUsers = userDetailDAO.allUserDetail();
+		List<Cart> allCarts = new ArrayList<>();
+	    for(UserDetail users : allUsers) {
+	    	allCarts.add(users.getCart());
+	    }
+		return allCarts;
+	}
+
+	@Override
+	public List<UserEmailAndCartDTO> getUserCart(List<String> userName) {
+		List<UserDetail> allUser = userDetailDAO.allUserDetail();
+		List<UserEmailAndCartDTO> userEmailAndCarts = new ArrayList<>();
+		for(UserDetail u : allUser) {
+			if(userName.contains(u.getUserName())) {
+				Cart cart = new Cart();
+				cart = u.getCart();
+				userEmailAndCarts.add(new UserEmailAndCartDTO(u.getUserName(), cart));
+				
+			}
+		}
+		return userEmailAndCarts;
 	}
 
 }

@@ -19,9 +19,15 @@ public interface UserDetailDAO extends CrudRepository<UserDetail, Long>{
 	//Anjali
 	@Query(value = "SELECT COUNT(*) FROM UserDetail where userName = :email ", nativeQuery = true)
 	int userCount(@Param("email")String email);
+	
 	@Query(value = "SELECT USERNAME FROM UserDetail", nativeQuery = true)
 	List<String> allUserNames();
 	
+	@Query(value = "select * from userdetail where userId = :id ", nativeQuery = true)
+	List<UserDetail> getUserById(@Param("id")long id);
+	
+    @Query(value="select * from UserDetail", nativeQuery = true)
+    List<UserDetail> allUserDetail();
 	
 
 }
