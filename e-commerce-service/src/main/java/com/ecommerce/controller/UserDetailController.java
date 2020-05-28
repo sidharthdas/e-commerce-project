@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ecommerce.dto.UserCartDetailDTO;
 import com.ecommerce.dto.UserDetailDTO;
 import com.ecommerce.dto.UserEmailAndCartDTO;
 import com.ecommerce.entity.Cart;
@@ -69,5 +70,11 @@ public class UserDetailController {
 	@PostMapping("/get-user-cart-by-userName")
 	public List<UserEmailAndCartDTO> getUserCart(@RequestBody List<String> userName){
 		return userDetailService.getUserCart(userName);
+	}
+	
+	@PostMapping("/get-user-cart-detail")
+	public List<UserCartDetailDTO> getUserCartDetails(@RequestBody long id){
+		userDetailService.getUserCartDetails(id);
+		return null;
 	}
 }

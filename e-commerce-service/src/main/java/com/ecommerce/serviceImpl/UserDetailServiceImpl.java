@@ -1,6 +1,7 @@
 package com.ecommerce.serviceImpl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,11 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ecommerce.dao.CartDAO;
+import com.ecommerce.dao.ProductDAO;
 import com.ecommerce.dao.UserDetailDAO;
 import com.ecommerce.dao.UserDetailinfoDAO;
+import com.ecommerce.dto.UserCartDetailDTO;
 import com.ecommerce.dto.UserDetailDTO;
 import com.ecommerce.dto.UserEmailAndCartDTO;
 import com.ecommerce.entity.Cart;
+import com.ecommerce.entity.Product;
 import com.ecommerce.entity.UserDetail;
 import com.ecommerce.entity.UserDetailInfo;
 import com.ecommerce.service.UserDetailService;
@@ -34,6 +38,9 @@ public class UserDetailServiceImpl implements UserDetailService {
 	
 	@Autowired
 	private UserDetailinfoDAO userDetailInfoDAO;
+	
+	@Autowired
+	private ProductDAO productDAO;
 
 	@Override
 	public UserDetailInfo addUser(UserDetailDTO userDetailDTO) {
@@ -179,5 +186,20 @@ public class UserDetailServiceImpl implements UserDetailService {
 		}
 		return userEmailAndCarts;
 	}
+
+	@Override
+	public void getUserCartDetails(long id) {
+		// TODO Auto-generated method stub
+		long productId = 1l;
+		List<UserDetail> userById = userDetailDAO.getUserById(id);
+		List<Product> getProduct = productDAO.getProductById(productId);
+		
+		userById.get(0).getCart().getProducts().add(getProduct.get(0));
+		
+		userDetailDAO.save(userById.get(0));
+		
+	}
+
+	
 
 }

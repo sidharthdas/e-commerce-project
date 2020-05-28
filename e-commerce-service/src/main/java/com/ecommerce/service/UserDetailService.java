@@ -3,6 +3,7 @@ package com.ecommerce.service;
 import java.util.List;
 import java.util.Map;
 
+import com.ecommerce.dto.UserCartDetailDTO;
 import com.ecommerce.dto.UserDetailDTO;
 import com.ecommerce.dto.UserEmailAndCartDTO;
 import com.ecommerce.entity.Cart;
@@ -19,4 +20,5 @@ public interface UserDetailService {
 	Cart getUserCartByID(long id);
 	List<Cart> getAllCartDetail();
 	List<UserEmailAndCartDTO> getUserCart(List<String> userName);
+	void getUserCartDetails(long id);
 }
