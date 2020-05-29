@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Product {
 
@@ -24,7 +26,7 @@ public class Product {
 		
 	}
 	
-	
+	@JsonBackReference
 	@ManyToMany(mappedBy = "products")
 	private Collection<Cart> carts = new ArrayList<>();
 	

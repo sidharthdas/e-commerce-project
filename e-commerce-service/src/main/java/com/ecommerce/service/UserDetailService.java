@@ -3,7 +3,6 @@ package com.ecommerce.service;
 import java.util.List;
 import java.util.Map;
 
-import com.ecommerce.dto.UserCartDetailDTO;
 import com.ecommerce.dto.UserDetailDTO;
 import com.ecommerce.dto.UserEmailAndCartDTO;
 import com.ecommerce.entity.Cart;

@@ -15,7 +15,6 @@ import com.ecommerce.dao.CartDAO;
 import com.ecommerce.dao.ProductDAO;
 import com.ecommerce.dao.UserDetailDAO;
 import com.ecommerce.dao.UserDetailinfoDAO;
-import com.ecommerce.dto.UserCartDetailDTO;
 import com.ecommerce.dto.UserDetailDTO;
 import com.ecommerce.dto.UserEmailAndCartDTO;
 import com.ecommerce.entity.Cart;

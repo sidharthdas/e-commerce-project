@@ -18,6 +18,7 @@ public class UserDetail {
 
 	private String password;
 	@OneToOne
+
 	private Cart cart;
 	
 	
