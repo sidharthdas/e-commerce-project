@@ -28,8 +28,6 @@ public interface UserDetailDAO extends CrudRepository<UserDetail, Long>{
 	
     @Query(value="select * from UserDetail", nativeQuery = true)
     List<UserDetail> allUserDetail();
-    
-    
 	
-
+   
 }

@@ -6,15 +6,19 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.ecommerce.dto.ProductIDAndProductQuantityDTO;
 import com.ecommerce.dto.UserDetailDTO;
 import com.ecommerce.dto.UserEmailAndCartDTO;
 import com.ecommerce.entity.Cart;
+import com.ecommerce.entity.UserDetail;
 import com.ecommerce.entity.UserDetailInfo;
 import com.ecommerce.service.UserDetailService;
 
@@ -70,9 +74,40 @@ public class UserDetailController {
 		return userDetailService.getUserCart(userName);
 	}
 	
-	@PostMapping("/get-user-cart-detail")
-	public void getUserCartDetails(@RequestBody long id){
-		userDetailService.getUserCartDetails(id);
+	@PostMapping("/add-product-to-cart/{userId}")
+	public void addProductToCart(@PathVariable("userId")long userId,@RequestBody long product_Id){
+		userDetailService.getUserCartDetails(userId,product_Id);
 		//return null;
+	}
+	
+	@GetMapping("get-user-details-with-specific-product_name/{productName}")
+	public List<UserDetail> getUserDetailsWithSpecificProduct(@PathVariable("productName")String productName){
+		return userDetailService.getUserDetailWithSpecificProduct(productName);
+	}
+	
+	@GetMapping("get-user-details-with-more-than-two-product/")
+	public List<UserDetail> getUserDetailsWithMoreThanTwoProduct(){
+		return userDetailService.getUserDetailWithMorethantwoProduct();
+	}
+	
+	@PostMapping("add-user-product-quantity-to-cart-/{userId}")
+	public void addProductQuantityToCart(@PathVariable("userId")long userId,@RequestBody ProductIDAndProductQuantityDTO productIdAndProductQuantityDTO){
+		userDetailService.getUserCartProductQuantityDetails(userId, productIdAndProductQuantityDTO.getProductId(), productIdAndProductQuantityDTO.getProductQuantity());
+		//return null;
+	}
+	
+	@GetMapping("get-user-cart-product-value/{userId}")
+	public float getUserCArtProductValue(@PathVariable("userId")long userId) {
+		return userDetailService.getUserCartValue(userId);
+	}
+	
+	@GetMapping("get-user-cart-product-quantity/")
+	public Map<String,Integer> getUserCartProductQuantity(){
+		return userDetailService.getUserCartProductQuantity();
+	}
+	
+	@DeleteMapping("delete-product-from-cart/{userId}")
+	public UserDetail deleteproductfromcart(@PathVariable("userId")long userId,@RequestBody long productId) {
+		return userDetailService.removeProductFromUserCart(userId, productId);
 	}
 }
