@@ -12,9 +12,6 @@ public class UserEmailAndCartDTO {
 		
 	}
 	
-	
-	
-	
 	public UserEmailAndCartDTO(String userName, Cart cart) {
 		super();
 		this.userName = userName;

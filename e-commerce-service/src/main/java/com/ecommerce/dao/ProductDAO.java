@@ -36,5 +36,8 @@ public interface ProductDAO extends CrudRepository<Product, Long>{
 	
 	@Query(value = "SELECT PRODUCTID FROM PRODUCT", nativeQuery = true)
 	List<Product> getListOfProductId();
+	
+	@Query(value = "SELECT * FROM PRODUCT", nativeQuery = true)
+	List<Product> getallProduct();
 
 }

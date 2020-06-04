@@ -12,11 +12,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ecommerce.dto.PriceRangeDTO;
+import com.ecommerce.dto.PriceWithDiscountDTO;
 import com.ecommerce.dto.ProductIDAndProductQuantityDTO;
+import com.ecommerce.dto.ProductWithoutQuantityDTO;
 import com.ecommerce.dto.UserDetailDTO;
 import com.ecommerce.dto.UserEmailAndCartDTO;
+import com.ecommerce.dto.UserNameAndProductDTO;
 import com.ecommerce.entity.Cart;
 import com.ecommerce.entity.UserDetail;
 import com.ecommerce.entity.UserDetailInfo;
@@ -109,5 +114,31 @@ public class UserDetailController {
 	@DeleteMapping("delete-product-from-cart/{userId}")
 	public UserDetail deleteproductfromcart(@PathVariable("userId")long userId,@RequestBody long productId) {
 		return userDetailService.removeProductFromUserCart(userId, productId);
+	}
+	
+	@GetMapping("show-product-id")
+	public String test123(@RequestParam(value = "productId", required = true) long productId) {
+		return "Product id is "+productId;
+	}
+	
+	@PostMapping("show-cart-with-extra-added-product")
+	public List<UserEmailAndCartDTO> userCartDetailWithExtraAddedProduct(@RequestParam(value = "productId",required = true)long productId){
+		return userDetailService.getUserCartDetailWithExtraAddedProduct(productId);
+	}
+	
+	@GetMapping("show-user-email-product-price-quantity")
+	public List<UserNameAndProductDTO> getUserNameWithProductNameAndPrice(){
+		return userDetailService.getUserNameWithProductNameAndPrice();
+	}
+	@PostMapping("get-product-by-range")
+	public List<ProductWithoutQuantityDTO> getProductByRange(@RequestBody PriceRangeDTO priceRangeDTO){
+		
+		return userDetailService.getProductWithinRange(priceRangeDTO.getStartPrice(), priceRangeDTO.getEndPrice());
+		
+	}
+	
+	@PostMapping("get-product-with-Discount")
+	public List<PriceWithDiscountDTO> getProductWithDiscount(@RequestBody float discount){
+		return userDetailService.getProductWithDiscount(discount);
 	}
 }

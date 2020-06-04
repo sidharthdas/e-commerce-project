@@ -17,9 +17,12 @@ import com.ecommerce.dao.CartDAO;
 import com.ecommerce.dao.ProductDAO;
 import com.ecommerce.dao.UserDetailDAO;
 import com.ecommerce.dao.UserDetailinfoDAO;
-import com.ecommerce.dto.ProductIDAndProductQuantityDTO;
+import com.ecommerce.dto.PriceWithDiscountDTO;
+import com.ecommerce.dto.ProductDTO;
+import com.ecommerce.dto.ProductWithoutQuantityDTO;
 import com.ecommerce.dto.UserDetailDTO;
 import com.ecommerce.dto.UserEmailAndCartDTO;
+import com.ecommerce.dto.UserNameAndProductDTO;
 import com.ecommerce.entity.Cart;
 import com.ecommerce.entity.Product;
 import com.ecommerce.entity.UserDetail;
@@ -299,5 +302,116 @@ public class UserDetailServiceImpl implements UserDetailService {
 		return userDetailDAO.save(user);
 
 	}
+
+	@Override
+	public List<UserEmailAndCartDTO> getUserCartDetailWithExtraAddedProduct(long productId) {
+		// TODO Auto-generated method stub
+		List<UserEmailAndCartDTO> userEmailCarts = new ArrayList<>();
+		List<UserDetail> allUser = userDetailDAO.allUserDetail();
+		List<Product> allProduct = productDAO.getProductById(productId);
+		for(UserDetail u : allUser) {
+			UserEmailAndCartDTO dto = new UserEmailAndCartDTO();
+			u.getCart().getProducts().add(allProduct.get(0));
+			userDetailDAO.save(u);
+			dto.setUserName(u.getUserName());
+			dto.setCart(u.getCart());
+			userEmailCarts.add(dto);
+		}
+		return userEmailCarts;
+	}
+
+	@Override
+	public List<UserNameAndProductDTO> getUserNameWithProductNameAndPrice() {
+		// TODO Auto-generated method stub
+		List<UserNameAndProductDTO> userNameAndProductList = new ArrayList<>();
+		List<UserDetail> allUser = userDetailDAO.allUserDetail();
+		for(UserDetail u : allUser) {
+			UserNameAndProductDTO userNameAndProductdto = new UserNameAndProductDTO();
+			userNameAndProductdto.setEmail(u.getUserName());
+			List<ProductWithoutQuantityDTO> pwqList = new ArrayList<>();
+			for(Product p : u.getCart().getProducts()) {
+			ProductWithoutQuantityDTO pwq = new ProductWithoutQuantityDTO();
+			pwq.setProdName(p.getProdName());
+			pwq.setPrice(p.getPrice());
+			pwqList.add(pwq);
+			}
+			userNameAndProductdto.setProductWithoutQuantity(pwqList);
+			
+			userNameAndProductList.add(userNameAndProductdto);
+			
+		}
+		return userNameAndProductList;
+	}
+
+	@Override
+	public List<ProductWithoutQuantityDTO> getProductWithinRange(float startRange, float endRange) {
+		// TODO Auto-generated method stub
+		List<ProductWithoutQuantityDTO> allProducts = new ArrayList<>();
+		List<Product> allProduct = productDAO.getallProduct();
+		List<Product> allProductWithinRange = 
+				allProduct.stream().filter(product -> product.getPrice() >= startRange && product.getPrice() <= endRange && product.getProductQuantity()>0)
+				.collect(Collectors.toList());
+		
+		for(Product p : allProductWithinRange) {
+			ProductWithoutQuantityDTO product = new ProductWithoutQuantityDTO();
+			product.setProdName(p.getProdName());
+			product.setPrice(p.getPrice());
+			allProducts.add(product);
+		}
+		return allProducts;
+	}
+
+	@Override
+	public List<PriceWithDiscountDTO> getProductWithDiscount(float discount) {
+		// TODO Auto-generated method stub
+		
+		List<Product> allProduct = productDAO.getallProduct();
+		
+		List<Product> allProductAfterDiscount = allProduct.stream().
+				map((product) -> product.setPrice(discountCalculation(discount,product.getPrice()))).collect
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//call ke baad start karenge
+	
+		/*
+		 * List<PriceWithDiscountDTO> allProductwithDiscount = new ArrayList<>();
+		 * List<Product> allProduct = productDAO.getallProduct(); for(Product p :
+		 * allProduct) { PriceWithDiscountDTO priceWithDiscount = new
+		 * PriceWithDiscountDTO(); float oldPrice = p.getPrice(); float caldiscount =
+		 * discountCalculation(discount, oldPrice); float newPrice = oldPrice -
+		 * caldiscount; priceWithDiscount.setProdName(p.getProdName());
+		 * priceWithDiscount.setProductQuantity(p.getProductQuantity());
+		 * priceWithDiscount.setNewPrice(newPrice);
+		 * priceWithDiscount.setOldPrice(p.getPrice());
+		 * allProductwithDiscount.add(priceWithDiscount); }
+		 * 
+		 * 
+		 * //return tak comment kar de
+		 * 
+		 * 
+		 * return allProductwithDiscount;
+		 */
+		
+		return null;
+	}
+	
+	private float discountCalculation(float discountPercent, float presentPrice) {
+		return (discountPercent/100)* presentPrice;
+	}
+	
 
 }

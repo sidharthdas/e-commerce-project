@@ -3,8 +3,11 @@ package com.ecommerce.service;
 import java.util.List;
 import java.util.Map;
 
+import com.ecommerce.dto.PriceWithDiscountDTO;
+import com.ecommerce.dto.ProductWithoutQuantityDTO;
 import com.ecommerce.dto.UserDetailDTO;
 import com.ecommerce.dto.UserEmailAndCartDTO;
+import com.ecommerce.dto.UserNameAndProductDTO;
 import com.ecommerce.entity.Cart;
 import com.ecommerce.entity.UserDetail;
 import com.ecommerce.entity.UserDetailInfo;
@@ -27,4 +30,8 @@ public interface UserDetailService {
 	float getUserCartValue(long userId);
 	Map<String,Integer> getUserCartProductQuantity();
 	UserDetail removeProductFromUserCart(long userId,long productId);
+	List<UserEmailAndCartDTO> getUserCartDetailWithExtraAddedProduct (long productId);
+	List<UserNameAndProductDTO> getUserNameWithProductNameAndPrice();
+	List<ProductWithoutQuantityDTO> getProductWithinRange(float startRange, float endRange);
+	List<PriceWithDiscountDTO> getProductWithDiscount(float discount);
 }
