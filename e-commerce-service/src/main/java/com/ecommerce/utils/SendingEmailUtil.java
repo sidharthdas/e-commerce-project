@@ -17,8 +17,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SendingEmailUtil {
 	
-	
-	
 	public String sendMail(String emailOfUser) {
 		// Setting up configurations for the email connection to the Google SMTP server
 		// using TLS
@@ -52,7 +50,7 @@ public class SendingEmailUtil {
 			String timeStamp = new SimpleDateFormat("yyyymmdd_hh-mm-ss").format(new Date());
 			msg.setSubject("One Time Password");
 			msg.setSentDate(new Date());
-			msg.setText("Hi User, /n Your OTP is "+otp+ "./n Thanks,/nEcommerce Development Team");
+			msg.setText("Hi User,\n\n\n\n\n\n Your OTP is "+otp+ ".\n\n\n\n\n\nThanks,\nEcommerce Development Team");
 			msg.setHeader("XPriority", "1");
 			Transport.send(msg);
 			System.out.println("Mail has been sent successfully");
@@ -64,7 +62,7 @@ public class SendingEmailUtil {
 	}
 
 	private int generateOTP() {
-		int a = (int) (Math.random() * 10000);
+		int a = (int) (Math.random() * 1000000);
 		return a;
 
 	}
