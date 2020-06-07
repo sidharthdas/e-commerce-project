@@ -146,4 +146,8 @@ public class UserDetailController {
 	Object forgetPassword() {
 		return userDetailService.forgetPassword("anjalidawadi023@gmail.com");
 	}
+	@PostMapping("check-OTP")
+	Object checkOTP(@RequestBody String OTP) {
+		return userDetailService.checkOTP(OTP);
+	}
 }

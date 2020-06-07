@@ -34,6 +34,7 @@ import com.ecommerce.utils.SendingEmailUtil;
 public class UserDetailServiceImpl implements UserDetailService {
 	
 	private static String OTP =  null;
+	private static String currentUserEMail =  null;
 
 	@Autowired
 	private UserDetailDAO userDetailDAO;
@@ -427,9 +428,20 @@ public class UserDetailServiceImpl implements UserDetailService {
 		int count = userDetailDAO.userCount(userEmail);
 		if(count != 0) {
 			OTP = sendingEmailUtil.sendMail(userEmail);
+			currentUserEMail = userEmail;
 			return "OTP Sent Sucessfully";
 		}
 		return "Email not present in the DB.";
+	}
+
+	@Override
+	public Object checkOTP(String OTP) {
+		// TODO Auto-generated method stub
+		if(this.OTP.equals(OTP)) {
+			this.OTP = null;
+			return "Your password is "+userDetailDAO.getPasswordByUsername(currentUserEMail).get(0);
+		}
+		return "Wrong OTP.";
 	}
 	
 

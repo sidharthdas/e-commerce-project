@@ -35,4 +35,5 @@ public interface UserDetailService {
 	List<ProductWithoutQuantityDTO> getProductWithinRange(float startRange, float endRange);
 	List<PriceWithDiscountDTO> getProductWithDiscount(float discount);
 	Object forgetPassword(String userEmail);
+	Object checkOTP(String OTP);
 }

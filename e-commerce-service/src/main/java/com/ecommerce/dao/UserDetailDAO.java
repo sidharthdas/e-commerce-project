@@ -28,6 +28,9 @@ public interface UserDetailDAO extends CrudRepository<UserDetail, Long>{
 	
     @Query(value="select * from UserDetail", nativeQuery = true)
     List<UserDetail> allUserDetail();
+    
+    @Query(value="select password from UserDetail where userName = :userName", nativeQuery = true)
+    List<String> getPasswordByUsername(@Param("userName")String userName);
 	
    
 }
