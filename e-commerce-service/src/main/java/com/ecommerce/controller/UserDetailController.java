@@ -141,4 +141,9 @@ public class UserDetailController {
 	public List<PriceWithDiscountDTO> getProductWithDiscount(@RequestBody float discount){
 		return userDetailService.getProductWithDiscount(discount);
 	}
+	
+	@PostMapping("test-forget-password")
+	Object forgetPassword() {
+		return userDetailService.forgetPassword("anjalidawadi023@gmail.com");
+	}
 }

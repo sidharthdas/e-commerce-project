@@ -28,9 +28,12 @@ import com.ecommerce.entity.Product;
 import com.ecommerce.entity.UserDetail;
 import com.ecommerce.entity.UserDetailInfo;
 import com.ecommerce.service.UserDetailService;
+import com.ecommerce.utils.SendingEmailUtil;
 
 @Service
 public class UserDetailServiceImpl implements UserDetailService {
+	
+	private static String OTP =  null;
 
 	@Autowired
 	private UserDetailDAO userDetailDAO;
@@ -46,6 +49,9 @@ public class UserDetailServiceImpl implements UserDetailService {
 
 	@Autowired
 	private ProductDAO productDAO;
+	
+	@Autowired
+	private SendingEmailUtil sendingEmailUtil;
 
 	@Override
 	public UserDetailInfo addUser(UserDetailDTO userDetailDTO) {
@@ -365,13 +371,14 @@ public class UserDetailServiceImpl implements UserDetailService {
 	public List<PriceWithDiscountDTO> getProductWithDiscount(float discount) {
 		// TODO Auto-generated method stub
 		
-		List<Product> allProduct = productDAO.getallProduct();
-		
-		List<Product> allProductAfterDiscount = allProduct.stream().
-				map((product) -> product.setPrice(discountCalculation(discount,product.getPrice()))).collect
-		
-		
-		
+		/*
+		 * List<Product> allProduct = productDAO.getallProduct();
+		 * 
+		 * List<Product> allProductAfterDiscount = allProduct.stream(). map((product) ->
+		 * product.setPrice(discountCalculation(discount,product.getPrice()))).collect
+		 * 
+		 * 
+		 */
 		
 		
 		
@@ -411,6 +418,18 @@ public class UserDetailServiceImpl implements UserDetailService {
 	
 	private float discountCalculation(float discountPercent, float presentPrice) {
 		return (discountPercent/100)* presentPrice;
+	}
+
+	@Override
+	public Object forgetPassword(String userEmail) {
+		// TODO Auto-generated method stub
+		
+		int count = userDetailDAO.userCount(userEmail);
+		if(count != 0) {
+			OTP = sendingEmailUtil.sendMail(userEmail);
+			return "OTP Sent Sucessfully";
+		}
+		return "Email not present in the DB.";
 	}
 	
 
