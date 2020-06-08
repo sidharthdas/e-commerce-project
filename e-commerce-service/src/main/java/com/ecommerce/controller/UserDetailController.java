@@ -135,7 +135,7 @@ public class UserDetailController {
 		
 		return userDetailService.getProductWithinRange(priceRangeDTO.getStartPrice(), priceRangeDTO.getEndPrice());
 		
-	}
+	}//
 	
 	@PostMapping("get-product-with-Discount")
 	public List<PriceWithDiscountDTO> getProductWithDiscount(@RequestBody float discount){
@@ -143,8 +143,8 @@ public class UserDetailController {
 	}
 	
 	@PostMapping("test-forget-password")
-	Object forgetPassword() {
-		return userDetailService.forgetPassword("anjalidawadi023@gmail.com");
+	Object forgetPassword(@RequestBody String userName) {
+		return userDetailService.forgetPassword(userName);
 	}
 	@PostMapping("check-OTP")
 	Object checkOTP(@RequestBody String OTP) {

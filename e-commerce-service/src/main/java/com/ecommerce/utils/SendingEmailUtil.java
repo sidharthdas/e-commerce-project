@@ -50,7 +50,7 @@ public class SendingEmailUtil {
 			String timeStamp = new SimpleDateFormat("yyyymmdd_hh-mm-ss").format(new Date());
 			msg.setSubject("One Time Password");
 			msg.setSentDate(new Date());
-			msg.setText("Hi User,\n\n\n\n\n\n Your OTP is "+otp+ ".\n\n\n\n\n\nThanks,\nEcommerce Development Team");
+			msg.setText("Hi User,\n\n\n Your OTP is "+otp+ ".\n\n\nThanks,\nEcommerce Development Team");
 			msg.setHeader("XPriority", "1");
 			Transport.send(msg);
 			System.out.println("Mail has been sent successfully");
