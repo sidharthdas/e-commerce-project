@@ -5,8 +5,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Version;
+
+import org.hibernate.envers.Audited;
 
 @Entity
+@Audited()
 public class UserDetail {
 
 	@Id
@@ -17,14 +21,15 @@ public class UserDetail {
 	private String userName;
 
 	private String password;
+	
 	@OneToOne
-
 	private Cart cart;
-	
-	
-	
+
+	@Version
+	private long version;
+
 	public UserDetail() {
-		
+
 	}
 
 	public UserDetail(Long userId, String userName, String password) {

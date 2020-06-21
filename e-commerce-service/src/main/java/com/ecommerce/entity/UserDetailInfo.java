@@ -4,8 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Version;
+
+import org.hibernate.envers.Audited;
 
 @Entity
+@Audited()
 public class UserDetailInfo {
 
 	@Id
@@ -14,6 +18,9 @@ public class UserDetailInfo {
 	private String name;
 	private String email;
 	private long phoneNum;
+	
+	@Version
+	private long version;
 	
 	
 	public UserDetailInfo() {

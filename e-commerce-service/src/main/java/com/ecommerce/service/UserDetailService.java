@@ -36,4 +36,6 @@ public interface UserDetailService {
 	List<PriceWithDiscountDTO> getProductWithDiscount(float discount);
 	Object forgetPassword(String userEmail);
 	Object checkOTP(String OTP);
+	
+	UserDetail updateUser(String userEmail);
 }

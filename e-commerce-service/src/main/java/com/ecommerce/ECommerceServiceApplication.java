@@ -10,6 +10,8 @@ public class ECommerceServiceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ECommerceServiceApplication.class, args);
+		
+	
 	}
 
 }

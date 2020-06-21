@@ -424,7 +424,7 @@ public class UserDetailServiceImpl implements UserDetailService {
 	@Override
 	public Object forgetPassword(String userEmail) {
 		// TODO Auto-generated method stub
-		
+		System.out.println(userEmail);
 		int count = userDetailDAO.userCount(userEmail);
 		if(count != 0) {
 			OTP = sendingEmailUtil.sendMail(userEmail);
@@ -442,6 +442,17 @@ public class UserDetailServiceImpl implements UserDetailService {
 			return "Your password is "+userDetailDAO.getPasswordByUsername(currentUserEMail).get(0);
 		}
 		return "Wrong OTP.";
+	}
+
+	@Override
+	public UserDetail updateUser(String userEmail) {
+		// TODO Auto-generated method stub
+		List<UserDetail> user = userDetailDAO.getUserById(1);
+		
+		user.get(0).setUserName("new@gmail.com");
+		userDetailDAO.save(user.get(0));
+		
+		return null;
 	}
 	
 

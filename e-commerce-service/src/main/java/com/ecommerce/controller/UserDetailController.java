@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -149,5 +150,10 @@ public class UserDetailController {
 	@PostMapping("check-OTP")
 	Object checkOTP(@RequestBody String OTP) {
 		return userDetailService.checkOTP(OTP);
+	}
+	
+	@PutMapping("update-user")
+	Object updateUser(String OTP) {
+		return userDetailService.updateUser(null);
 	}
 }
