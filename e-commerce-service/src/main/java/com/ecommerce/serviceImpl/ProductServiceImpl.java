@@ -31,13 +31,13 @@ public class ProductServiceImpl implements ProductService {
 	public void addDummyProduct() {
 		// TODO Auto-generated method stub
 		List<ProductDTO> allProduct = new ArrayList<>();
-		allProduct.add(new ProductDTO("T-Shirt", 2999, 10));
-		allProduct.add(new ProductDTO("Pant", 4999, 100));
-		allProduct.add(new ProductDTO("Shoes", 10999, 110));
-		allProduct.add(new ProductDTO("Bag", 2000, 210));
-		allProduct.add(new ProductDTO("Underwear", 299, 150));
-		allProduct.add(new ProductDTO("Tie", 2999, 610));
-		allProduct.add(new ProductDTO("Soap", 20, 180));
+		allProduct.add(new ProductDTO("T-Shirt", 2999, 10, "Levis", "black"));
+		allProduct.add(new ProductDTO("Pant", 4999, 100, "Levis", "black"));
+		allProduct.add(new ProductDTO("Shoes", 10999, 110, "Adidas", "yellow"));
+		allProduct.add(new ProductDTO("Bag", 2000, 210, "Adidas", "brown"));
+		allProduct.add(new ProductDTO("Underwear", 299, 150, "Jockey", "red"));
+		allProduct.add(new ProductDTO("Tie", 2999, 610, "Levis", "black"));
+		allProduct.add(new ProductDTO("Soap", 20, 180, "Pears", "blue"));
 
 		allProduct.forEach(product -> {
 			addProduct(product);
@@ -56,6 +56,8 @@ public class ProductServiceImpl implements ProductService {
 			product.setProdName(productDTO.getProdName());
 			product.setPrice(productDTO.getPrice());
 			product.setProductQuantity(productDTO.getProductQuantity());
+			product.setProductBrand(productDTO.getProductBrand());
+			product.setProductColor(productDTO.getProductColor());
 			productDAO.save(product);
 			return productDTO;
 		}

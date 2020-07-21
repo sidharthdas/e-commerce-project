@@ -5,6 +5,9 @@ public class ProductDTO {
 	private String prodName;
 	private float price;
 	private int productQuantity;
+	private String productBrand;
+	private String productColor;
+	
 	
 	public ProductDTO() {
 		
@@ -12,10 +15,36 @@ public class ProductDTO {
 	
 	
 
-	public ProductDTO(String prodName, float price, int productQuantity) {
+	public ProductDTO(String prodName, float price, int productQuantity, String productBrand, String productColor) {
 		this.prodName = prodName;
 		this.price = price;
 		this.productQuantity = productQuantity;
+		this.productBrand = productBrand;
+		this.productColor = productColor;
+	}
+
+	
+
+	public String getProductBrand() {
+		return productBrand;
+	}
+
+
+
+	public void setProductBrand(String productBrand) {
+		this.productBrand = productBrand;
+	}
+
+
+
+	public String getProductColor() {
+		return productColor;
+	}
+
+
+
+	public void setProductColor(String productColor) {
+		this.productColor = productColor;
 	}
 
 
