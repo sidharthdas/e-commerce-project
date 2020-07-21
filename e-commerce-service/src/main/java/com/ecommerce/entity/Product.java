@@ -23,8 +23,25 @@ public class Product {
 	private String prodName;
 	private float price;
 	private int productQuantity;
+	private String productBrand;
+	private String productColor;
 	
-	
+	public String getProductColor() {
+		return productColor;
+	}
+
+	public void setProductColor(String productColor) {
+		this.productColor = productColor;
+	}
+
+	public String getProductBrand() {
+		return productBrand;
+	}
+
+	public void setProductBrand(String productBrand) {
+		this.productBrand = productBrand;
+	}
+
 	public Product() {
 		
 	}

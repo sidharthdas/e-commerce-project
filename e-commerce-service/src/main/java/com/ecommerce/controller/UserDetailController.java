@@ -147,13 +147,14 @@ public class UserDetailController {
 	Object forgetPassword(@RequestBody String userName) {
 		return userDetailService.forgetPassword(userName);
 	}
+	
 	@PostMapping("check-OTP")
 	Object checkOTP(@RequestBody String OTP) {
 		return userDetailService.checkOTP(OTP);
 	}
 	
 	@PutMapping("update-user")
-	Object updateUser(String OTP) {
+	Object updateUser(String OTP) {  
 		return userDetailService.updateUser(null);
 	}
 }

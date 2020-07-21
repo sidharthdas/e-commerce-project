@@ -2,21 +2,30 @@ package com.ecommerce.serviceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ecommerce.dao.ProductDAO;
 import com.ecommerce.dto.ProductDTO;
+import com.ecommerce.dto.SearchForm;
 import com.ecommerce.entity.Product;
+import com.ecommerce.enums.SEARCH_TYPE;
 import com.ecommerce.service.ProductService;
 
 @Service
-public class ProductServiceImpl implements ProductService{
-	
+public class ProductServiceImpl implements ProductService {
+
 	@Autowired
-	private ProductDAO productDAO; 
+	private ProductDAO productDAO;
+
+	@Autowired
+	private EntityManager entityManager;
 
 	@Override
 	public void addDummyProduct() {
@@ -30,26 +39,25 @@ public class ProductServiceImpl implements ProductService{
 		allProduct.add(new ProductDTO("Tie", 2999, 610));
 		allProduct.add(new ProductDTO("Soap", 20, 180));
 
-		allProduct.forEach(product ->{
+		allProduct.forEach(product -> {
 			addProduct(product);
 		});
-		
-		
+
 	}
 
 	@Override
 	public ProductDTO addProduct(ProductDTO productDTO) {
 		// TODO Auto-generated method stub
-		if(Objects.isNull(productDTO)) {
+		if (Objects.isNull(productDTO)) {
 			return null;
 		}
-		if(productDAO.countProduct(productDTO.getProdName()) == 0) {
+		if (productDAO.countProduct(productDTO.getProdName()) == 0) {
 			Product product = new Product();
 			product.setProdName(productDTO.getProdName());
 			product.setPrice(productDTO.getPrice());
 			product.setProductQuantity(productDTO.getProductQuantity());
-			 productDAO.save(product);
-			 return productDTO;
+			productDAO.save(product);
+			return productDTO;
 		}
 		return null;
 	}
@@ -60,4 +68,53 @@ public class ProductServiceImpl implements ProductService{
 		return null;
 	}
 
+	@Override
+	public List<Product> searchProduct(SearchForm searchForm) {
+		List<Product> productByFilters = null;
+		if (searchForm.getSearchType() != SEARCH_TYPE.CUSTOM) {
+			
+			
+
+		}
+		productByFilters = getProductByFilters(searchForm.getSearchParams());
+
+		return productByFilters;
+	}
+
+	private List<Product> getProductByFilters(Map<String, Object> searchParam) {
+		String sqlQuery = "FROM Product where";
+		String newSqlQuery = null;
+		if (searchParam.containsKey("colour")) {
+			String color = searchParam.get("colour").toString();
+			newSqlQuery = sqlQuery + " productColor = '" + color+"'";
+		}
+		if (searchParam.containsKey("lowPrice") && searchParam.containsKey("highPrice")) {
+			float lowPrice = Float.parseFloat(searchParam.get("lowPrice").toString());
+			float highPrice = Float.parseFloat(searchParam.get("highPrice").toString());
+			if (Objects.nonNull(newSqlQuery)) {
+				newSqlQuery = newSqlQuery + " AND price > " + lowPrice + " AND price < "
+						+ highPrice;
+			}else {
+				newSqlQuery = sqlQuery + " price > " + lowPrice + " AND price < " 
+										+ highPrice;
+			}
+		}
+		if(searchParam.containsKey("brand")) {
+			String brand = searchParam.get("brand").toString();
+			if (Objects.nonNull(newSqlQuery)) {
+				newSqlQuery = newSqlQuery + " AND productBrand = '"+brand+"'";
+			}else {
+				newSqlQuery = sqlQuery + " productBrand = '"+brand+"'";
+			}
+			
+		}
+		
+		System.out.println("Search query = "+ newSqlQuery);
+		
+		Query query = entityManager.createQuery(newSqlQuery);
+		
+		List<Product> products = query.getResultList();
+		
+		return products;
+	}
 }

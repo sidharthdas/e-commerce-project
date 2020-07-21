@@ -4,13 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+
 
 import org.springframework.context.annotation.Configuration;
 
@@ -18,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 public class SendingEmailUtil {
 	
 	public String sendMail(String emailOfUser) {
-		// Setting up configurations for the email connection to the Google SMTP server
+		/*// Setting up configurations for the email connection to the Google SMTP server
 		// using TLS
 		int otp = 0;
 		Properties props = new Properties();
@@ -38,11 +32,11 @@ public class SendingEmailUtil {
 			MimeMessage msg = new MimeMessage(session);
 			// Storing the comma seperated values to email addresses
 			String to = emailOfUser;
-			/*
-			 * Parsing the String with defualt delimiter as a comma by marking the boolean
-			 * as true and storing the email addresses in an array of InternetAddress
-			 * objects
-			 */
+			
+			  Parsing the String with defualt delimiter as a comma by marking the boolean
+			  as true and storing the email addresses in an array of InternetAddress
+			  objects
+			 
 			otp = generateOTP();
 			InternetAddress[] address = InternetAddress.parse(to, true);
 			// Setting the recipients from the address variable
@@ -56,9 +50,10 @@ public class SendingEmailUtil {
 			System.out.println("Mail has been sent successfully");
 		} catch (MessagingException mex) {
 			System.out.println("Unable to send an email" + mex);
-		}
+		}*/
 
-		return String.valueOf(otp);
+		//return String.valueOf(otp);
+		return null;
 	}
 
 	private int generateOTP() {
