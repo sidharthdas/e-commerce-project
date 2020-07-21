@@ -110,6 +110,22 @@ public class ProductServiceImpl implements ProductService {
 			}
 			
 		}
+		if(searchParam.containsKey("lowPrice") && !searchParam.containsKey("highPrice")) {
+			float lowPrice = Float.valueOf(searchParam.get("lowPrice").toString());
+			if (Objects.nonNull(newSqlQuery)) {
+				newSqlQuery = newSqlQuery + " AND price > "+lowPrice;
+			}else {
+				newSqlQuery = sqlQuery + " price = "+lowPrice;
+			}
+		}
+		if(searchParam.containsKey("highPrice") && !searchParam.containsKey("lowPrice")) {
+			float highPrice = Float.valueOf(searchParam.get("highPrice").toString());
+			if (Objects.nonNull(newSqlQuery)) {
+				newSqlQuery = newSqlQuery + " AND price < "+highPrice;
+			}else {
+				newSqlQuery = sqlQuery + " price = "+highPrice;
+			}
+		}
 		
 		System.out.println("Search query = "+ newSqlQuery);
 		
