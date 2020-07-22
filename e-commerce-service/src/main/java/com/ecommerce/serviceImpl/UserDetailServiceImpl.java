@@ -17,6 +17,7 @@ import com.ecommerce.dao.CartDAO;
 import com.ecommerce.dao.ProductDAO;
 import com.ecommerce.dao.UserDetailDAO;
 import com.ecommerce.dao.UserDetailinfoDAO;
+import com.ecommerce.dao.WishListDAO;
 import com.ecommerce.dto.PriceWithDiscountDTO;
 import com.ecommerce.dto.ProductDTO;
 import com.ecommerce.dto.ProductWithoutQuantityDTO;
@@ -27,6 +28,7 @@ import com.ecommerce.entity.Cart;
 import com.ecommerce.entity.Product;
 import com.ecommerce.entity.UserDetail;
 import com.ecommerce.entity.UserDetailInfo;
+import com.ecommerce.entity.WishList;
 import com.ecommerce.service.UserDetailService;
 import com.ecommerce.utils.SendingEmailUtil;
 
@@ -35,7 +37,9 @@ public class UserDetailServiceImpl implements UserDetailService {
 	
 	private static String OTP =  null;
 	private static String currentUserEMail =  null;
-
+	
+	@Autowired
+	private WishListDAO wishListDAO;
 	@Autowired
 	private UserDetailDAO userDetailDAO;
 
@@ -63,11 +67,14 @@ public class UserDetailServiceImpl implements UserDetailService {
 
 		if (userDetailDAO.userCount(userDetailDTO.getEmail()) == 0) {
 			Cart cart = new Cart();
+			WishList wishList = new WishList();
 			cartDAO.save(cart);
+			wishListDAO.save(wishList);
 			UserDetail userDetail = new UserDetail();
 			userDetail.setCart(cart);
 			userDetail.setPassword(userDetailDTO.getPassword());
 			userDetail.setUserName(userDetailDTO.getEmail());
+			userDetail.setWishList(wishList);
 
 			userDetailDAO.save(userDetail);
 

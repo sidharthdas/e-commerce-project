@@ -3,6 +3,7 @@ package com.ecommerce.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,16 @@ public class ProductController {
 	@PostMapping("search-products-with-filters")
 	public List<Product> searchProduct(@RequestBody SearchForm searchForm){
 		return productService.searchProduct(searchForm);
+	}
+	
+	@PostMapping("sort-product-by-price")
+	public List<Product> sortProductByPrice	(@RequestBody int order){
+		return productService.sortProductByPrice(order);
+	}
+	
+	@GetMapping("sort-product-by-quantity")
+	public List<Product> sortProductByQuantity(){
+		return productService.sortProductByQuantity();
 	}
 
 }

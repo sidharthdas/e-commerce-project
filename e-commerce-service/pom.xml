@@ -32,6 +32,8 @@
 			<artifactId>hibernate-envers</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
+		
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

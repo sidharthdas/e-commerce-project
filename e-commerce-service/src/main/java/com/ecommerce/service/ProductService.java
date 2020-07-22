@@ -12,5 +12,7 @@ public interface ProductService {
 	ProductDTO addProduct(ProductDTO product);
 	List<ProductDTO> addListOfProduct(List<ProductDTO> products);
 	List<Product> searchProduct(SearchForm searchForm);
+	List<Product> sortProductByPrice(int order);
+	List<Product> sortProductByQuantity();
 
 }

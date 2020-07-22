@@ -24,6 +24,9 @@ public class UserDetail {
 	
 	@OneToOne
 	private Cart cart;
+	
+	@OneToOne
+	private WishList wishList;
 
 	@Version
 	private long version;
@@ -31,6 +34,20 @@ public class UserDetail {
 	public UserDetail() {
 
 	}
+	
+	
+
+	public WishList getWishList() {
+		return wishList;
+	}
+
+
+
+	public void setWishList(WishList wishList) {
+		this.wishList = wishList;
+	}
+
+
 
 	public UserDetail(Long userId, String userName, String password) {
 		this.userId = userId;

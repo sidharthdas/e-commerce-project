@@ -2,6 +2,7 @@ package com.ecommerce.entity;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,6 +27,19 @@ public class Product {
 	private String productBrand;
 	private String productColor;
 	
+	@ManyToMany
+	private List<WishList> wishList = new ArrayList<>();
+	
+	
+	
+	public List<WishList> getWishList() {
+		return wishList;
+	}
+
+	public void setWishList(List<WishList> wishList) {
+		this.wishList = wishList;
+	}
+
 	public String getProductColor() {
 		return productColor;
 	}
@@ -49,7 +63,6 @@ public class Product {
 	@JsonBackReference
 	@ManyToMany(mappedBy = "products")
 	private Collection<Cart> carts = new ArrayList<>();
-	
 	
 	
 	public int getProductQuantity() {

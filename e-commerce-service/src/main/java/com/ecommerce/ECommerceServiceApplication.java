@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan(basePackages = "com")
+//@Enable
 public class ECommerceServiceApplication {
 
 	public static void main(String[] args) {

@@ -1,6 +1,8 @@
 package com.ecommerce.serviceImpl;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -11,6 +13,7 @@ import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ecommerce.comparator.SortProduct;
 import com.ecommerce.dao.ProductDAO;
 import com.ecommerce.dto.ProductDTO;
 import com.ecommerce.dto.SearchForm;
@@ -18,8 +21,12 @@ import com.ecommerce.entity.Product;
 import com.ecommerce.enums.SEARCH_TYPE;
 import com.ecommerce.service.ProductService;
 
+
+
 @Service
 public class ProductServiceImpl implements ProductService {
+	
+	
 
 	@Autowired
 	private ProductDAO productDAO;
@@ -134,5 +141,36 @@ public class ProductServiceImpl implements ProductService {
 		List<Product> products = query.getResultList();
 		
 		return products;
+	}
+
+	@Override
+	public List<Product> sortProductByPrice(int order){
+		// TODO Auto-generated method stub
+		//SortProduct.order = 1;
+
+		List<Product> allProduct = productDAO.getallProduct();
+		Collections.sort(allProduct, new SortProduct(order));
+	
+		return allProduct;
+	}
+
+	@Override
+	public List<Product> sortProductByQuantity() {
+		// TODO Auto-generated method stub
+		List<Product> allProduct = productDAO.getallProduct();
+		
+		Comparator<Product> compareByQuantity = (Product o1, Product o2)-> {
+			if(o1.getProductQuantity() == o2.getProductQuantity()) {
+				return 0;
+			}else if(o1.getProductQuantity() > o2.getProductQuantity()) {
+				return -1;
+			}else
+				return 1;
+			
+			
+		};
+		
+		Collections.sort(allProduct, compareByQuantity);
+		return allProduct;
 	}
 }
