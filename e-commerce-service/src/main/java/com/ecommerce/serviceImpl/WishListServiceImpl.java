@@ -3,8 +3,11 @@ package com.ecommerce.serviceImpl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ecommerce.dao.ProductDAO;
 import com.ecommerce.dao.UserDetailDAO;
@@ -15,6 +18,7 @@ import com.ecommerce.entity.WishList;
 import com.ecommerce.service.WishListService;
 
 @Service
+@Transactional
 public class WishListServiceImpl implements WishListService {
 	
 	@Autowired
@@ -25,6 +29,9 @@ public class WishListServiceImpl implements WishListService {
 	
 	@Autowired
 	private WishListDAO wishListDAO;
+	
+	@Autowired
+	private EntityManager entityManager;
 
 	@Override
 	public WishList addProductToWishList(List<String> productName, Long userId) {
@@ -56,6 +63,19 @@ public class WishListServiceImpl implements WishListService {
 			}
 		}
 		return userDetailDAO.getUserById(userId).get(0).getWishList();
+	}
+	@Transactional
+	@Override
+	public void addTest() {
+		
+		wishListDAO.test();
+		System.out.println("in add test emthod");
+		
+		Integer.parseInt("");
+		
+		
+		
+		
 	}
 
 

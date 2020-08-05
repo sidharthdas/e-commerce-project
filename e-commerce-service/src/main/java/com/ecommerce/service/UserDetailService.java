@@ -38,4 +38,6 @@ public interface UserDetailService {
 	Object checkOTP(String OTP);
 	
 	UserDetail updateUser(String userEmail);
+	
+	String test();
 }

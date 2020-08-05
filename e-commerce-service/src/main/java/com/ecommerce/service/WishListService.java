@@ -8,5 +8,6 @@ import com.ecommerce.entity.WishList;
 public interface WishListService {
 	
 	WishList addProductToWishList(List<String> productName, Long userId);
+	public void addTest();
 
 }

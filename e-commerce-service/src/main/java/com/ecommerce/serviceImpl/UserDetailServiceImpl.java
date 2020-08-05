@@ -32,7 +32,7 @@ import com.ecommerce.entity.WishList;
 import com.ecommerce.service.UserDetailService;
 import com.ecommerce.utils.SendingEmailUtil;
 
-@Service
+@Service("user")
 public class UserDetailServiceImpl implements UserDetailService {
 	
 	private static String OTP =  null;
@@ -460,6 +460,12 @@ public class UserDetailServiceImpl implements UserDetailService {
 		userDetailDAO.save(user.get(0));
 		
 		return null;
+	}
+
+	@Override
+	public String test() {
+		// TODO Auto-generated method stub
+		return "in userdetail service";
 	}
 	
 

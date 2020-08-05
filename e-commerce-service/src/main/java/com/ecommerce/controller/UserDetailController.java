@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,9 +30,10 @@ import com.ecommerce.entity.UserDetailInfo;
 import com.ecommerce.service.UserDetailService;
 
 @RestController
-@RequestMapping("userdetail")
+@RequestMapping("/api/userdetail")
 public class UserDetailController {
 	
+	@Qualifier("user")
 	@Autowired
 	private UserDetailService userDetailService;
 	
@@ -156,5 +158,10 @@ public class UserDetailController {
 	@PutMapping("update-user")
 	Object updateUser(String OTP) {  
 		return userDetailService.updateUser(null);
+	}
+	
+	@GetMapping("test123")
+	public String test(){
+		return userDetailService.test();
 	}
 }
