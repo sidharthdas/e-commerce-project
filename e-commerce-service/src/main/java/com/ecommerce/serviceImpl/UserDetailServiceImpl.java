@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.ecommerce.dao.CartDAO;
@@ -19,7 +19,6 @@ import com.ecommerce.dao.UserDetailDAO;
 import com.ecommerce.dao.UserDetailinfoDAO;
 import com.ecommerce.dao.WishListDAO;
 import com.ecommerce.dto.PriceWithDiscountDTO;
-import com.ecommerce.dto.ProductDTO;
 import com.ecommerce.dto.ProductWithoutQuantityDTO;
 import com.ecommerce.dto.UserDetailDTO;
 import com.ecommerce.dto.UserEmailAndCartDTO;
@@ -57,6 +56,9 @@ public class UserDetailServiceImpl implements UserDetailService {
 	
 	@Autowired
 	private SendingEmailUtil sendingEmailUtil;
+	
+	@Value("${college.name}")
+	private String collegeName;
 
 	@Override
 	public UserDetailInfo addUser(UserDetailDTO userDetailDTO) {

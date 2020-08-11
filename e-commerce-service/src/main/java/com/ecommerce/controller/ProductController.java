@@ -39,5 +39,9 @@ public class ProductController {
 	public List<Product> sortProductByQuantity(){
 		return productService.sortProductByQuantity();
 	}
+	
+	public int add(int i, int j) {
+		return i+j;
+	}
 
 }

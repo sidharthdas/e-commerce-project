@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.ecommerce.comparator.SortProduct;
@@ -89,7 +90,8 @@ public class ProductServiceImpl implements ProductService {
 
 		return productByFilters;
 	}
-
+	
+	//@Scheduled(cron = "* * 1 * * * *")
 	private List<Product> getProductByFilters(Map<String, Object> searchParam) {
 		String sqlQuery = "FROM Product where";
 		String newSqlQuery = null;
