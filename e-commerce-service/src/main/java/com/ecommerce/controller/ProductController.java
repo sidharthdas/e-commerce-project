@@ -43,5 +43,17 @@ public class ProductController {
 	public int add(int i, int j) {
 		return i+j;
 	}
+	
+	public double computeCircleArea(double radious) {
+		return Math.PI * radious * radious;
+	}
+	
+	public int multiply(int i, int j) {
+		return i*j;
+	}
+	
+	public int div(int i, int j) {
+		return i/j;
+	}
 
 }
