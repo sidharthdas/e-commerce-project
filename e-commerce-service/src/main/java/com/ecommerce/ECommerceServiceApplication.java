@@ -1,5 +1,6 @@
 package com.ecommerce;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -33,5 +34,10 @@ public class ECommerceServiceApplication {
 	private static ApiInfo apiInfor() {
 		return new ApiInfo("Ecommerce WebSite", "Apis of Ecommerce Website. Copyright By Sidharth Das ", "1.0", "Free To Use", "", "", "");
 	}
+	
+	@Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
 
 }

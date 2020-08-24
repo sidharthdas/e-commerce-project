@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import com.ecommerce.dao.UserDetailinfoDAO;
 import com.ecommerce.dao.WishListDAO;
 import com.ecommerce.dto.PriceWithDiscountDTO;
 import com.ecommerce.dto.ProductWithoutQuantityDTO;
+import com.ecommerce.dto.UserDetail1DTO;
 import com.ecommerce.dto.UserDetailDTO;
 import com.ecommerce.dto.UserEmailAndCartDTO;
 import com.ecommerce.dto.UserNameAndProductDTO;
@@ -30,12 +32,20 @@ import com.ecommerce.entity.UserDetailInfo;
 import com.ecommerce.entity.WishList;
 import com.ecommerce.service.UserDetailService;
 import com.ecommerce.utils.SendingEmailUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 @Service("user")
 public class UserDetailServiceImpl implements UserDetailService {
 	
 	private static String OTP =  null;
 	private static String currentUserEMail =  null;
+	
+	@Autowired
+	private ObjectMapper objectMapper;
+	
+	@Autowired
+	private ModelMapper mapper;
 	
 	@Autowired
 	private WishListDAO wishListDAO;
@@ -468,6 +478,16 @@ public class UserDetailServiceImpl implements UserDetailService {
 	public String test() {
 		// TODO Auto-generated method stub
 		return "in userdetail service";
+	}
+
+	@Override
+	public UserDetail1DTO testObjectMapper() {
+	
+		UserDetail user = userDetailDAO.getUserById(1).get(0);
+		
+		UserDetail1DTO userDTO = mapper.map(user, UserDetail1DTO.class);
+		
+		return userDTO;
 	}
 	
 

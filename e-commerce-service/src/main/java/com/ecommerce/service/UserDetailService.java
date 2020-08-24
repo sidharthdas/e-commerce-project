@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.ecommerce.dto.PriceWithDiscountDTO;
 import com.ecommerce.dto.ProductWithoutQuantityDTO;
+import com.ecommerce.dto.UserDetail1DTO;
 import com.ecommerce.dto.UserDetailDTO;
 import com.ecommerce.dto.UserEmailAndCartDTO;
 import com.ecommerce.dto.UserNameAndProductDTO;
@@ -40,4 +41,6 @@ public interface UserDetailService {
 	UserDetail updateUser(String userEmail);
 	
 	String test();
+	
+	UserDetail1DTO testObjectMapper();
 }

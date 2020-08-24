@@ -21,6 +21,7 @@ import com.ecommerce.dto.PriceRangeDTO;
 import com.ecommerce.dto.PriceWithDiscountDTO;
 import com.ecommerce.dto.ProductIDAndProductQuantityDTO;
 import com.ecommerce.dto.ProductWithoutQuantityDTO;
+import com.ecommerce.dto.UserDetail1DTO;
 import com.ecommerce.dto.UserDetailDTO;
 import com.ecommerce.dto.UserEmailAndCartDTO;
 import com.ecommerce.dto.UserNameAndProductDTO;
@@ -163,5 +164,9 @@ public class UserDetailController {
 	@GetMapping("test123")
 	public String test(){
 		return userDetailService.test();
+	}
+	@GetMapping("test-object-mapper")
+	public UserDetail1DTO testObjectMapper() {
+		return userDetailService.testObjectMapper();
 	}
 }

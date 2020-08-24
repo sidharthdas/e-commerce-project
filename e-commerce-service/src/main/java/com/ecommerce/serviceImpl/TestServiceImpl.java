@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ecommerce.dto.PriceWithDiscountDTO;
 import com.ecommerce.dto.ProductWithoutQuantityDTO;
+import com.ecommerce.dto.UserDetail1DTO;
 import com.ecommerce.dto.UserDetailDTO;
 import com.ecommerce.dto.UserEmailAndCartDTO;
 import com.ecommerce.dto.UserNameAndProductDTO;
@@ -160,6 +161,12 @@ public class TestServiceImpl implements UserDetailService {
 	public String test() {
 		// TODO Auto-generated method stub
 		return "in test";
+	}
+
+	@Override
+	public UserDetail1DTO testObjectMapper() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
