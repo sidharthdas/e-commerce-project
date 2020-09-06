@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import javax.annotation.PreDestroy;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.ecommerce.comparator.SortProduct;
@@ -22,13 +22,8 @@ import com.ecommerce.entity.Product;
 import com.ecommerce.enums.SEARCH_TYPE;
 import com.ecommerce.service.ProductService;
 
-
-
 @Service
 public class ProductServiceImpl implements ProductService {
-	
-	
-
 	@Autowired
 	private ProductDAO productDAO;
 
@@ -82,77 +77,73 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> searchProduct(SearchForm searchForm) {
 		List<Product> productByFilters = null;
 		if (searchForm.getSearchType() != SEARCH_TYPE.CUSTOM) {
-			
-			
 
 		}
 		productByFilters = getProductByFilters(searchForm.getSearchParams());
 
 		return productByFilters;
 	}
-	
-	//@Scheduled(cron = "* * 1 * * * *")
+
+	// @Scheduled(cron = "* * 1 * * * *")
 	private List<Product> getProductByFilters(Map<String, Object> searchParam) {
 		String sqlQuery = "FROM Product where";
 		String newSqlQuery = null;
 		if (searchParam.containsKey("colour")) {
 			String color = searchParam.get("colour").toString();
-			newSqlQuery = sqlQuery + " productColor = '" + color+"'";
+			newSqlQuery = sqlQuery + " productColor = '" + color + "'";
 		}
 		if (searchParam.containsKey("lowPrice") && searchParam.containsKey("highPrice")) {
 			float lowPrice = Float.parseFloat(searchParam.get("lowPrice").toString());
 			float highPrice = Float.parseFloat(searchParam.get("highPrice").toString());
 			if (Objects.nonNull(newSqlQuery)) {
-				newSqlQuery = newSqlQuery + " AND price > " + lowPrice + " AND price < "
-						+ highPrice;
-			}else {
-				newSqlQuery = sqlQuery + " price > " + lowPrice + " AND price < " 
-										+ highPrice;
+				newSqlQuery = newSqlQuery + " AND price > " + lowPrice + " AND price < " + highPrice;
+			} else {
+				newSqlQuery = sqlQuery + " price > " + lowPrice + " AND price < " + highPrice;
 			}
 		}
-		if(searchParam.containsKey("brand")) {
+		if (searchParam.containsKey("brand")) {
 			String brand = searchParam.get("brand").toString();
 			if (Objects.nonNull(newSqlQuery)) {
-				newSqlQuery = newSqlQuery + " AND productBrand = '"+brand+"'";
-			}else {
-				newSqlQuery = sqlQuery + " productBrand = '"+brand+"'";
+				newSqlQuery = newSqlQuery + " AND productBrand = '" + brand + "'";
+			} else {
+				newSqlQuery = sqlQuery + " productBrand = '" + brand + "'";
 			}
-			
+
 		}
-		if(searchParam.containsKey("lowPrice") && !searchParam.containsKey("highPrice")) {
+		if (searchParam.containsKey("lowPrice") && !searchParam.containsKey("highPrice")) {
 			float lowPrice = Float.valueOf(searchParam.get("lowPrice").toString());
 			if (Objects.nonNull(newSqlQuery)) {
-				newSqlQuery = newSqlQuery + " AND price > "+lowPrice;
-			}else {
-				newSqlQuery = sqlQuery + " price = "+lowPrice;
+				newSqlQuery = newSqlQuery + " AND price > " + lowPrice;
+			} else {
+				newSqlQuery = sqlQuery + " price = " + lowPrice;
 			}
 		}
-		if(searchParam.containsKey("highPrice") && !searchParam.containsKey("lowPrice")) {
+		if (searchParam.containsKey("highPrice") && !searchParam.containsKey("lowPrice")) {
 			float highPrice = Float.valueOf(searchParam.get("highPrice").toString());
 			if (Objects.nonNull(newSqlQuery)) {
-				newSqlQuery = newSqlQuery + " AND price < "+highPrice;
-			}else {
-				newSqlQuery = sqlQuery + " price = "+highPrice;
+				newSqlQuery = newSqlQuery + " AND price < " + highPrice;
+			} else {
+				newSqlQuery = sqlQuery + " price = " + highPrice;
 			}
 		}
-		
-		System.out.println("Search query = "+ newSqlQuery);
-		
+
+		System.out.println("Search query = " + newSqlQuery);
+
 		Query query = entityManager.createQuery(newSqlQuery);
-		
+
 		List<Product> products = query.getResultList();
-		
+
 		return products;
 	}
 
 	@Override
-	public List<Product> sortProductByPrice(int order){
+	public List<Product> sortProductByPrice(int order) {
 		// TODO Auto-generated method stub
-		//SortProduct.order = 1;
+		// SortProduct.order = 1;
 
 		List<Product> allProduct = productDAO.getallProduct();
 		Collections.sort(allProduct, new SortProduct(order));
-	
+
 		return allProduct;
 	}
 
@@ -160,19 +151,19 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> sortProductByQuantity() {
 		// TODO Auto-generated method stub
 		List<Product> allProduct = productDAO.getallProduct();
-		
-		Comparator<Product> compareByQuantity = (Product o1, Product o2)-> {
-			if(o1.getProductQuantity() == o2.getProductQuantity()) {
+
+		Comparator<Product> compareByQuantity = (Product o1, Product o2) -> {
+			if (o1.getProductQuantity() == o2.getProductQuantity()) {
 				return 0;
-			}else if(o1.getProductQuantity() > o2.getProductQuantity()) {
+			} else if (o1.getProductQuantity() > o2.getProductQuantity()) {
 				return -1;
-			}else
+			} else
 				return 1;
-			
-			
+
 		};
-		
+
 		Collections.sort(allProduct, compareByQuantity);
 		return allProduct;
 	}
+
 }

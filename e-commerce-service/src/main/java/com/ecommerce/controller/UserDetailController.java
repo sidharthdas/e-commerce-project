@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -168,5 +169,11 @@ public class UserDetailController {
 	@GetMapping("test-object-mapper")
 	public UserDetail1DTO testObjectMapper() {
 		return userDetailService.testObjectMapper();
+	}
+	
+	@GetMapping("/test-test")
+	public String  test12345(@RequestHeader(value = "fileType") String fileType) {
+		return fileType;
+		
 	}
 }
