@@ -288,6 +288,7 @@ public class UserDetailServiceImpl implements UserDetailService {
 	@Override
 	public float getUserCartValue(long userId) {
 		// TODO Auto-generated method stub
+		String s = "";
 		List<UserDetail> allUser = userDetailDAO.getUserById(userId);
 		Collection<Product> getallProduct = allUser.get(0).getCart().getProducts();
 		// List<Integer> quantity = productDAO.quantityOfProductById());
